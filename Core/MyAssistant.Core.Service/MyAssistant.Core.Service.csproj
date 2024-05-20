@@ -7,10 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
+    <Folder Include="CommandsAndQueries\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyAssistant.Core.Contract\MyAssistant.Core.Contract.csproj" />
     <ProjectReference Include="..\MyAssistant.Core.Data\MyAssistant.Core.Data.csproj" />
   </ItemGroup>
 

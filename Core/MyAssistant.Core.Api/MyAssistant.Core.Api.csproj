@@ -7,11 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.0" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Controllers\V1\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyAssistant.Core.Contract\MyAssistant.Core.Contract.csproj" />
+    <ProjectReference Include="..\MyAssistant.Core.Data\MyAssistant.Core.Data.csproj" />
+    <ProjectReference Include="..\MyAssistant.Core.Service\MyAssistant.Core.Service.csproj" />
   </ItemGroup>
 
 </Project>
