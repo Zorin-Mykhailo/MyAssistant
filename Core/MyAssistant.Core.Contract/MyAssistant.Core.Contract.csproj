@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MyAssistant.Core.Data\MyAssistant.Core.Data.csproj" />
   </ItemGroup>
 
