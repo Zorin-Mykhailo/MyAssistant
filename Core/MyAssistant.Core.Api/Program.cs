@@ -1,15 +1,17 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
-using MyAssistant.Core.Data.Entities.Auth;
-using MyAssistant.Core.Data.Context;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using MyAssistant.Core.Data.Context;
+using MyAssistant.Core.Data.Entities.Auth;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+//builder.Services.AddLogging();
+//builder.Services.AddHttpLogging(o => { });
 builder.Services.AddDbContext<MyAssistant.Core.Data.Context.AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AppDb"),
     b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)));
@@ -79,14 +81,14 @@ builder.Services.AddAuthentication(options =>
      };
  });
 
-builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", policy =>
-{
-    policy
-    .WithOrigins(builder.Configuration.GetSection("AllowedHosts").Get<string[]>()!)
-    .AllowAnyHeader()
-    .AllowAnyMethod()
-    .AllowCredentials();
-}));
+//builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", policy =>
+//{
+//    policy
+//    .WithOrigins(builder.Configuration.GetSection("AllowedHosts").Get<string[]>()!)
+//    .AllowAnyHeader()
+//    .AllowAnyMethod()
+//    .AllowCredentials();
+//}));
 
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(MyAssistant.Core.Service.Ping).Assembly));
@@ -104,11 +106,12 @@ if(app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpLogging();
+
+//app.UseHttpLogging();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors("CorsPolicy");
+//app.UseCors("CorsPolicy");
 app.MapControllers();
 
 foreach(var service in builder.Services)

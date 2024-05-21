@@ -11,7 +11,7 @@ namespace MyAssistant.Core.Api.Controllers.Authentication;
 [ApiController]
 [ApiVersion(1.0)]
 [Route("api/v{version:apiVersion}/[controller]")]
-public class TokenController(IMediator Mediator, ILogger Logger) : ControllerBase
+public class TokenController(IMediator Mediator, ILogger<TokenController> Logger) : ControllerBase
 {
     [HttpPost]
     [Route("refresh")]

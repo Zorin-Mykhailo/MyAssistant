@@ -23,12 +23,13 @@ public record RevokeRefreshTokenApiCommand : IRequest<bool>
 
         public async Task<bool> Handle(RevokeRefreshTokenApiCommand command, CancellationToken cancellationToken = default)
         {
-            ClaimsPrincipal principal = GetPrincipalFromExpiredToken(command.RefreshToken);
+            ClaimsPrincipal principal = GetPrincipalFromExpiredToken(command.AccessToken);
             string? userName = principal.Identity.Name; //this is mapped to the Name claim by default
 
             AppUser user = await _userManager.FindByNameAsync(userName) ?? throw new Exception("Invalid username");
 
-            user.RefreshToken = null!;
+            user.RefreshToken = "⛔ " + Guid.NewGuid().ToString();
+            user.RefreshTokenExpiryTime = DateTime.UtcNow;
 
             await _userManager.UpdateAsync(user);
 

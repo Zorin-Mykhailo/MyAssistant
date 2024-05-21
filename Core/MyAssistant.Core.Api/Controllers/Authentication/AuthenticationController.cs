@@ -9,7 +9,7 @@ namespace MyAssistant.Core.Api.Controllers.Authentication;
 [ApiController]
 [ApiVersion(1.0)]
 [Route("api/v{version:apiVersion}/[controller]")]
-public class AuthenticationController(IMediator Mediator, ILogger Logger) : ControllerBase
+public class AuthenticationController(IMediator Mediator, ILogger<AuthenticationController> Logger) : ControllerBase
 {
     [HttpPost]
     [Route("login")]

@@ -1,0 +1,29 @@
+﻿###
+# ▬▬▬ Auth/Login ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+###
+
+POST {{AppHostAddress}}/api/v{{ApiVersion}}/Authentication/login
+content-type: application/json
+
+{
+  "userName": "admin",
+  "password": "Pa$$w0rd"
+}
+
+
+
+###
+# ▬▬▬ Auth/Register ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+###
+
+POST {{AppHostAddress}}/api/v{{ApiVersion}}/Authentication/register
+content-type: application/json
+
+{
+  "userName": "admin",
+  "firstName": "Mikhail",
+  "lastName": "Zorin",
+  "email": "m.zorin@mail.com",
+  "password": "Pa$$w0rd",
+  "role": "admin"
+}

@@ -1,0 +1,26 @@
+﻿###
+# ▬▬▬ AuthToken/Refresh ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+###
+
+POST {{AppHostAddress}}/api/v{{ApiVersion}}/Token/refresh
+content-type: application/json
+
+{
+  "accessToken": "{{AccessToken}}",
+  "refreshToken": "{{RefreshToken}}"
+}
+
+
+
+###
+# ▬▬▬ AuthToken/Revoke ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+###
+
+POST {{AppHostAddress}}/api/v{{ApiVersion}}/Token/revoke
+content-type: application/json
+Authorization: Bearer {{AccessToken}}
+
+{
+  "accessToken": "{{AccessToken}}",
+  "refreshToken": "{{RefreshToken}}"
+}
