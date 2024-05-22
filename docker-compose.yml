@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  myassistant.core.api:
+    image: ${DOCKER_REGISTRY-}myassistantcoreapi
+    build:
+      context: .
+      dockerfile: Core/MyAssistant.Core.Api/Dockerfile
