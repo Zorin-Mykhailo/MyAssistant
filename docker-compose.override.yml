@@ -2,13 +2,22 @@ version: '3.4'
 
 services:
     mssql:
-        container_name: mssql-server
+        container_name: mssql
         image: mcr.microsoft.com/mssql/server:latest
         environment:
-            - SA_PASSWORD=Pa$$w0rd
+            - SA_PASSWORD=My_P@ssw0rd
             - ACCEPT_EULA=Y
         ports:
-            - 5432:1433
+            - 1433:1433
+        networks:
+            - mynetwork
+        healthcheck:
+            test: ["CMD-SHELL", "sqlcmd -S localhost -U sa -P My_P@ssw0rd -Q 'SELECT 1'"]
+            interval: 30s
+            timeout: 10s
+            retries: 5
+
+
     myassistant.core.api:
         container_name: myassistant-core
         environment:
@@ -16,8 +25,18 @@ services:
             - ASPNETCORE_HTTP_PORTS=4141
             - ASPNETCORE_HTTPS_PORTS=24141
         ports:
-            - "4141"
-            - "24141"
+            - "4141:4141"
+            - "24141:24141"
         volumes:
             - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
             - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+        networks:
+            - mynetwork
+        depends_on:
+            mssql:
+                condition: service_healthy
+
+
+networks:
+    mynetwork:
+        driver: bridge
