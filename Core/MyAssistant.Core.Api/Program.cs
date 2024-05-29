@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -9,10 +10,12 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Services.AddControllers();
 //builder.Services.AddLogging();
 //builder.Services.AddHttpLogging(o => { });
-builder.Services.AddDbContext<MyAssistant.Core.Data.Context.AppDbContext>(options =>
+var conStrBuilder = new SqlConnectionStringBuilder(builder.Configuration.GetConnectionString("AppDb"));
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AppDb"),
     b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)));
 builder.Services.AddEndpointsApiExplorer();
@@ -114,9 +117,20 @@ app.UseAuthorization();
 //app.UseCors("CorsPolicy");
 app.MapControllers();
 
-foreach(var service in builder.Services)
+//foreach(var service in builder.Services)
+//{
+//    Console.WriteLine($"{service.Lifetime} | {service.ServiceType}");
+//}
+
+using(var scope = app.Services.CreateScope())
 {
-    Console.WriteLine($"{service.Lifetime} | {service.ServiceType}");
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<AppDbContext>();
+    if(context.Database.GetPendingMigrations().Any())
+    {
+        context.Database.Migrate();
+    }
 }
 
 app.Run();

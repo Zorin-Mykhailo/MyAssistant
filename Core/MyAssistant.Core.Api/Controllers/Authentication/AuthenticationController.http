@@ -20,7 +20,7 @@ POST {{AppHostAddress}}/api/v{{ApiVersion}}/Authentication/register
 content-type: application/json
 
 {
-  "userName": "admin",
+  "userName": "admin3",
   "firstName": "Mikhail",
   "lastName": "Zorin",
   "email": "m.zorin@mail.com",

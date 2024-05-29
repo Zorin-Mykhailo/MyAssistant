@@ -5,17 +5,17 @@ services:
         container_name: mssql
         image: mcr.microsoft.com/mssql/server:latest
         environment:
-            - SA_PASSWORD=My_P@ssw0rd
-            - ACCEPT_EULA=Y
+            SA_PASSWORD: "${DB_PASSWORD}"
+            ACCEPT_EULA: "Y"
         ports:
             - 1433:1433
         networks:
             - mynetwork
-        healthcheck:
-            test: ["CMD-SHELL", "sqlcmd -S localhost -U sa -P My_P@ssw0rd -Q 'SELECT 1'"]
-            interval: 30s
-            timeout: 10s
-            retries: 5
+        # healthcheck:
+        #     test: ["CMD-SHELL", "sqlcmd -S localhost -U sa -P ${DB_PASSWORD} -Q 'SELECT 1'"]
+        #     interval: 30s
+        #     timeout: 10s
+        #     retries: 5
 
 
     myassistant.core.api:
@@ -32,9 +32,9 @@ services:
             - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
         networks:
             - mynetwork
-        depends_on:
-            mssql:
-                condition: service_healthy
+        # depends_on:
+        #     mssql:
+        #         condition: service_healthy
 
 
 networks:
